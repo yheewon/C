@@ -2,43 +2,43 @@
 #include<stdlib.h>
 #include<Windows.h>
 typedef struct StartArray {
-	int decimal;// 10Áø¼ö
-	int b1, b2, b3, b4;//binary2Áø¼ö 
-	int one;//1ÀÇ °³¼ö
+	int decimal;// 10ì§„ìˆ˜
+	int b1, b2, b3, b4;//binary2ì§„ìˆ˜ 
+	int one;//1ì˜ ê°œìˆ˜
 }start;
-typedef struct GroupArray {//±×·ìÈ­ ½ÃÅ²ÈÄ
+typedef struct GroupArray {//ê·¸ë£¹í™” ì‹œí‚¨í›„
 	int deimal;
 	int b1, b2, b3, b4;
 }group;
-typedef struct Changing_bit1 {//¸ÓÂ¡ 1´Ü°è
+typedef struct Changing_bit1 {//ë¨¸ì§• 1ë‹¨ê³„
 	int merging[2];
 	int binary[4];
 }first;
-typedef struct Changing_bit2 {//¸ÓÂ¡ 2´Ü°è
+typedef struct Changing_bit2 {//ë¨¸ì§• 2ë‹¨ê³„
 	int merging[4];
 	int binary[4];
 }second;
-typedef struct Changing_bit3 {//¸ÓÂ¡ 3´Ü°è
+typedef struct Changing_bit3 {//ë¨¸ì§• 3ë‹¨ê³„
 	int merging[8];
 	int binary[4];
 }third;
-typedef struct Changing_bit4 {//¸ÓÂ¡ 4´Ü°è
+typedef struct Changing_bit4 {//ë¨¸ì§• 4ë‹¨ê³„
 	int merging[16];
 	char binary[4];
 }fourth;
 typedef struct Prime_implicants {//P.I 
 	int binary[4];
 	int merging[16];
-	int merging_num;//( , )°ıÈ£ ¾È¿¡ ÀÖ´Â ¼ıÀÚ °³¼ö
+	int merging_num;//( , )ê´„í˜¸ ì•ˆì— ìˆëŠ” ìˆ«ì ê°œìˆ˜
 }prime;
-typedef struct Chart {//Ç¥¾È¿¡ xÇ¥½Ã ÇØÁÙ ±¸Á¶Ã¼
+typedef struct Chart {//í‘œì•ˆì— xí‘œì‹œ í•´ì¤„ êµ¬ì¡°ì²´
 	int x[16];
 }chart;
 typedef struct Essential_PI {
 	int binary[4];
 	int merging[16];
 	int merging_num;
-	int pi_order;//pi³»¿¡¼­ÀÇ ¼ø¼­
+	int pi_order;//pië‚´ì—ì„œì˜ ìˆœì„œ
 }essential;
 start input[50];
 group array[50];
@@ -49,83 +49,83 @@ fourth m4[5];
 prime pi[20];
 chart c[20];
 essential epi[10];
-int a;//¼ıÀÚ ÀÔ·Â ¹ŞÀ» ¹è¿­
-int num;//¼ıÀÚ °¹¼ö
-int key;//½ºÆäÀÌ½º
-int order = 0;//±¸Á¶Ã¼ input¹è¿­ ¼ø¼­(Change ÇÔ¼ö)
-int c0 = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0;//±×·ìÀ¸·Î ¹­°í ³­ÈÄ¿¡ °¢ ±×·ì¸¶´Ù ¸î°³µé¾îÀÖ´ÂÁö ¾Ë·ÁÁÖ´Â ÇÔ¼ö
-int first0 = 0, first1 = 0, first2 = 0, first3 = 0;//Ã³À½ ¸ÓÂ¡ÇÏ°í ´Ü°è¸¶´Ù ¸î°³µé¾îÀÖ´ÂÁö ¾Ë·ÁÁÖ´Â ÇÔ¼ö
-int second0 = 0, second1 = 0, second2 = 0;//µÎ¹øÂ° ¸ÓÂ¡ÇÏ°í ´Ü°è¸¶´Ù ¸î°³ µé¾îÀÖ´ÂÁö ¾Ë·ÁÁÖ´Â ÇÔ¼ö
-int third0 = 0; third1 = 0;// ¼¼¹øÂ° ¸ÓÂ¡ÇÏ°í ´Ü°è¸¶´Ù ¸î°³ µé¾îÀÖ´ÂÁö ¾Ë·ÁÁÖ´Â ÇÔ¼ö
-int Fir_result;//Ã¹¹øÀç ¸ÓÂ¡ÀÌÈÄ ¸î°³ÀÇ °á°ú°ª
-int Sec_result;//µÎ¹øÂ°¸ÓÂ¡ÀÌÈÄ ¸î°³ÀÇ °á°ú°ª
-int Third = 0;//ÇöÀç±îÁö ¸î¹øÀÇ ¸¶Â¡ÀÌ ÀÌ·ïÁ³´ÂÁö Ã¼Å©ÇØÁÙ º¯¼ö
-int pnumber = 0;//pi¼ø¼­
-void Change();//½ÊÁø¼ö ÀÌÁø¼ö·Î º¯È¯½ÃÅ°´Â ÇÔ¼ö
-void Change_Print();//ÀÌÁø¼ö·Î º¯È¯ÇÑ°ª Ãâ·ÂÇØÁÖ´Â ÇÔ¼ö
-void Group();//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
-void First_Merging();//¸ÓÂ¡ÇÒ ÇÔ¼ö
-void Second_Merging();//µÎ¹øÂ° ¸ÓÂ¡
-void Third_Merging();//¼¼¹øÀç ¸ÓÂ¡
-void Fourth_Merging();//³×¹øÂ° ¸ÓÂ¡
-void Search_pi();//p.i Ã£±â
-void Search_epi();//epiÃ£±â
+int a;//ìˆ«ì ì…ë ¥ ë°›ì„ ë°°ì—´
+int num;//ìˆ«ì ê°¯ìˆ˜
+int key;//ìŠ¤í˜ì´ìŠ¤
+int order = 0;//êµ¬ì¡°ì²´ inputë°°ì—´ ìˆœì„œ(Change í•¨ìˆ˜)
+int c0 = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0;//ê·¸ë£¹ìœ¼ë¡œ ë¬¶ê³  ë‚œí›„ì— ê° ê·¸ë£¹ë§ˆë‹¤ ëª‡ê°œë“¤ì–´ìˆëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜
+int first0 = 0, first1 = 0, first2 = 0, first3 = 0;//ì²˜ìŒ ë¨¸ì§•í•˜ê³  ë‹¨ê³„ë§ˆë‹¤ ëª‡ê°œë“¤ì–´ìˆëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜
+int second0 = 0, second1 = 0, second2 = 0;//ë‘ë²ˆì§¸ ë¨¸ì§•í•˜ê³  ë‹¨ê³„ë§ˆë‹¤ ëª‡ê°œ ë“¤ì–´ìˆëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜
+int third0 = 0; third1 = 0;// ì„¸ë²ˆì§¸ ë¨¸ì§•í•˜ê³  ë‹¨ê³„ë§ˆë‹¤ ëª‡ê°œ ë“¤ì–´ìˆëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜
+int Fir_result;//ì²«ë²ˆì¬ ë¨¸ì§•ì´í›„ ëª‡ê°œì˜ ê²°ê³¼ê°’
+int Sec_result;//ë‘ë²ˆì§¸ë¨¸ì§•ì´í›„ ëª‡ê°œì˜ ê²°ê³¼ê°’
+int Third = 0;//í˜„ì¬ê¹Œì§€ ëª‡ë²ˆì˜ ë§ˆì§•ì´ ì´ë¤„ì¡ŒëŠ”ì§€ ì²´í¬í•´ì¤„ ë³€ìˆ˜
+int pnumber = 0;//piìˆœì„œ
+void Change();//ì‹­ì§„ìˆ˜ ì´ì§„ìˆ˜ë¡œ ë³€í™˜ì‹œí‚¤ëŠ” í•¨ìˆ˜
+void Change_Print();//ì´ì§„ìˆ˜ë¡œ ë³€í™˜í•œê°’ ì¶œë ¥í•´ì£¼ëŠ” í•¨ìˆ˜
+void Group();//1ì˜ê°œìˆ˜ë¡œ ê·¸ë£¹í™” ì‹œí‚¬ í•¨ìˆ˜
+void First_Merging();//ë¨¸ì§•í•  í•¨ìˆ˜
+void Second_Merging();//ë‘ë²ˆì§¸ ë¨¸ì§•
+void Third_Merging();//ì„¸ë²ˆì¬ ë¨¸ì§•
+void Fourth_Merging();//ë„¤ë²ˆì§¸ ë¨¸ì§•
+void Search_pi();//p.i ì°¾ê¸°
+void Search_epi();//epiì°¾ê¸°
 int main(void)
 {
 	int i;
-	printf("ÀÔ·ÂÇÒ ¼ıÀÚ °¹¼ö: ");
+	printf("ì…ë ¥í•  ìˆ«ì ê°¯ìˆ˜: ");
 	scanf_s("%d", &num);
 	for (i = 0; i < num; i++) {
 		scanf_s("%d", &a);
-		Change();//½ÊÁø¼ö ÀÌÁø¼ö·Î º¯È¯½ÃÅ°´Â ÇÔ¼ö
-	}//ÀÌÁø¼ö º¯È¯ ³¡
+		Change();//ì‹­ì§„ìˆ˜ ì´ì§„ìˆ˜ë¡œ ë³€í™˜ì‹œí‚¤ëŠ” í•¨ìˆ˜
+	}//ì´ì§„ìˆ˜ ë³€í™˜ ë
 	key = getch();
 	if (key == 32) {
 		Change_Print();
 	}
-	Group();//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
-	First_Merging();//¸ÓÂ¡ÇÒ ÇÔ¼ö
-	Second_Merging();//µÎ¹øÂ° ¸ÓÂ¡
-	Third_Merging();//¼¼¹øÀç ¸ÓÂ¡
+	Group();//1ì˜ê°œìˆ˜ë¡œ ê·¸ë£¹í™” ì‹œí‚¬ í•¨ìˆ˜
+	First_Merging();//ë¨¸ì§•í•  í•¨ìˆ˜
+	Second_Merging();//ë‘ë²ˆì§¸ ë¨¸ì§•
+	Third_Merging();//ì„¸ë²ˆì¬ ë¨¸ì§•
 	if (num == 16) {
 		Fourth_Merging();
 	}
-	Search_pi();//pi Ã£±â
+	Search_pi();//pi ì°¾ê¸°
 	Search_epi();
 }
-void Change()//½ÊÁø¼ö ÀÌÁø¼ö·Î º¯È¯½ÃÅ°´Â ÇÔ¼ö
+void Change()//ì‹­ì§„ìˆ˜ ì´ì§„ìˆ˜ë¡œ ë³€í™˜ì‹œí‚¤ëŠ” í•¨ìˆ˜
 {
-	int number = 0;//rset ¹è¿­ ¼ø¼­
-	int rest[4] = { 0 };//½ÊÁø¼ö 2·Î ³ª´« ³ª¸ÓÁöµé ÀúÀåÇÒ ¹è¿­
+	int number = 0;//rset ë°°ì—´ ìˆœì„œ
+	int rest[4] = { 0 };//ì‹­ì§„ìˆ˜ 2ë¡œ ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ë“¤ ì €ì¥í•  ë°°ì—´
 	input[order].decimal = a;
 	for (int j = 0; a > 0; j++) {
 		rest[number] = a % 2;
 		a = a / 2;
 		number += 1;
-	}//½ÊÁø¼ö 2 ³ª¸ÓÁö rest¹è¿­¿¡ ³Ö¾îÁÖ±â
+	}//ì‹­ì§„ìˆ˜ 2 ë‚˜ë¨¸ì§€ restë°°ì—´ì— ë„£ì–´ì£¼ê¸°
 	input[order].b1 = rest[3];
 	input[order].b2 = rest[2];
 	input[order].b3 = rest[1];
-	input[order].b4 = rest[0];//rest ¹è¿­¿¡ ÀÖ´Â °ªµé °Å²Ù·Î ±¸Á¶Ã¼ ÀÌÁø¼ö º¯¼ö¿¡ ³Ö¾îÁÖ±â
+	input[order].b4 = rest[0];//rest ë°°ì—´ì— ìˆëŠ” ê°’ë“¤ ê±°ê¾¸ë¡œ êµ¬ì¡°ì²´ ì´ì§„ìˆ˜ ë³€ìˆ˜ì— ë„£ì–´ì£¼ê¸°
 	order++;
 	number = 0;
 	for (int j = 0; j < 4; j++)
 	{
 		rest[j] = 0;
-	}//rest¹è¿­ ÃÊ±âÈ­
+	}//restë°°ì—´ ì´ˆê¸°í™”
 }
-void Change_Print()//ÀÌÁø¼ö·Î º¯È¯ÇÑ°ª Ãâ·ÂÇØÁÖ´Â ÇÔ¼ö
+void Change_Print()//ì´ì§„ìˆ˜ë¡œ ë³€í™˜í•œê°’ ì¶œë ¥í•´ì£¼ëŠ” í•¨ìˆ˜
 {
 	system("cls");
-	printf("½ÊÁø¼ö --------------> ÀÌÁø¼ö\n\n");
+	printf("ì‹­ì§„ìˆ˜ --------------> ì´ì§„ìˆ˜\n\n");
 	for (int i = 0; i < num; i++) {
 		printf("  %d    --------------> %d%d%d%d\n", input[i].decimal, input[i].b1, input[i].b2, input[i].b3, input[i].b4);
 	}
 }
-void Group()//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
+void Group()//1ì˜ê°œìˆ˜ë¡œ ê·¸ë£¹í™” ì‹œí‚¬ í•¨ìˆ˜
 {
-	int count = 0;//1ÀÇ °³¼ö Ä«¿îÆ®
-	int anumber = 0;//array¼ø¼­
+	int count = 0;//1ì˜ ê°œìˆ˜ ì¹´ìš´íŠ¸
+	int anumber = 0;//arrayìˆœì„œ
 	for (int i = 0; i < num; i++) {
 		if (input[i].b1 == 1) {
 			count++;
@@ -139,7 +139,7 @@ void Group()//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
 		if (input[i].b4 == 1) {
 			count++;
 		}
-		input[i].one = count;//°¢ ÀÌÁø¼ö 1ÀÇ °³¼ö ¼¼±â
+		input[i].one = count;//ê° ì´ì§„ìˆ˜ 1ì˜ ê°œìˆ˜ ì„¸ê¸°
 		if (count == 0) {
 			c0++;
 		}
@@ -160,8 +160,8 @@ void Group()//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
 	key = getch();
 	if (key == 32) {
 		system("cls");
-		printf(" ±×·ìÈ­\n\n");
-		for (int i = 0; i < num; i++) {//input¹è¿­ array¹è¿­¿¡ º¹»ç
+		printf(" ê·¸ë£¹í™”\n\n");
+		for (int i = 0; i < num; i++) {//inputë°°ì—´ arrayë°°ì—´ì— ë³µì‚¬
 			if (input[i].one == 0) {
 				array[anumber].deimal = input[i].decimal;
 				array[anumber].b1 = input[i].b1;
@@ -222,12 +222,12 @@ void Group()//1ÀÇ°³¼ö·Î ±×·ìÈ­ ½ÃÅ³ ÇÔ¼ö
 		}
 	}
 }
-void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
+void First_Merging()//ë¨¸ì§•í•  í•¨ìˆ˜
 {
-	int count = 0;//¸ÓÂ¡ Á¶°Ç¿¡ ÀûÇÕÇÑÁö Ã£À» º¯¼ö
-	int mnumber = 0;//m1¼ø¼­
+	int count = 0;//ë¨¸ì§• ì¡°ê±´ì— ì í•©í•œì§€ ì°¾ì„ ë³€ìˆ˜
+	int mnumber = 0;//m1ìˆœì„œ
 	int enter = 0;
-	if (c0 > 0) {//0´Ü°è Á¸Àç
+	if (c0 > 0) {//0ë‹¨ê³„ ì¡´ì¬
 		for (int i = 0; i < c0; i++) {
 			for (int h = c0; h < c0 + c1; h++) {
 				if (array[i].b1 == array[h].b1) {
@@ -242,7 +242,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 				if (array[i].b4 == array[h].b4) {
 					count++;
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					first0++;
 					m1[mnumber].merging[0] = array[i].deimal;
 					m1[mnumber].merging[1] = array[h].deimal;
@@ -250,25 +250,25 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 						m1[mnumber].binary[0] = array[i].b1;
 					}
 					else {
-						m1[mnumber].binary[0] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[0] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b2 == array[h].b2) {
 						m1[mnumber].binary[1] = array[i].b2;
 					}
 					else {
-						m1[mnumber].binary[1] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[1] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b3 == array[h].b3) {
 						m1[mnumber].binary[2] = array[i].b3;
 					}
 					else {
-						m1[mnumber].binary[2] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[2] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b4 == array[h].b4) {
 						m1[mnumber].binary[3] = array[i].b4;
 					}
 					else {
-						m1[mnumber].binary[3] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[3] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					mnumber++;
 				}
@@ -276,7 +276,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 			}
 		}
 	}
-	if (c1 > 0) {//1´Ü°è Á¸Àç
+	if (c1 > 0) {//1ë‹¨ê³„ ì¡´ì¬
 		for (int i = c0; i < c0 + c1; i++) {
 			for (int h = c0 + c1; h < c0 + c1 + c2; h++) {
 				if (array[i].b1 == array[h].b1) {
@@ -291,7 +291,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 				if (array[i].b4 == array[h].b4) {
 					count++;
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					first1++;
 					m1[mnumber].merging[0] = array[i].deimal;
 					m1[mnumber].merging[1] = array[h].deimal;
@@ -299,25 +299,25 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 						m1[mnumber].binary[0] = array[i].b1;
 					}
 					else {
-						m1[mnumber].binary[0] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[0] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b2 == array[h].b2) {
 						m1[mnumber].binary[1] = array[i].b2;
 					}
 					else {
-						m1[mnumber].binary[1] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[1] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b3 == array[h].b3) {
 						m1[mnumber].binary[2] = array[i].b3;
 					}
 					else {
-						m1[mnumber].binary[2] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[2] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b4 == array[h].b4) {
 						m1[mnumber].binary[3] = array[i].b4;
 					}
 					else {
-						m1[mnumber].binary[3] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[3] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					mnumber++;
 				}
@@ -325,7 +325,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 			}
 		}
 	}
-	if (c2 > 0) {//2´Ü°è Á¸Àç
+	if (c2 > 0) {//2ë‹¨ê³„ ì¡´ì¬
 		for (int i = c0 + c1; i < c0 + c1 + c2; i++) {
 			for (int h = c0 + c1 + c2; h < c0 + c1 + c2 + c3; h++) {
 				if (array[i].b1 == array[h].b1) {
@@ -340,7 +340,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 				if (array[i].b4 == array[h].b4) {
 					count++;
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					first2++;
 					m1[mnumber].merging[0] = array[i].deimal;
 					m1[mnumber].merging[1] = array[h].deimal;
@@ -348,25 +348,25 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 						m1[mnumber].binary[0] = array[i].b1;
 					}
 					else {
-						m1[mnumber].binary[0] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[0] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b2 == array[h].b2) {
 						m1[mnumber].binary[1] = array[i].b2;
 					}
 					else {
-						m1[mnumber].binary[1] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[1] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b3 == array[h].b3) {
 						m1[mnumber].binary[2] = array[i].b3;
 					}
 					else {
-						m1[mnumber].binary[2] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[2] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b4 == array[h].b4) {
 						m1[mnumber].binary[3] = array[i].b4;
 					}
 					else {
-						m1[mnumber].binary[3] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[3] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					mnumber++;
 				}
@@ -374,7 +374,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 			}
 		}
 	}
-	if (c3 > 0) {//3´Ü°è Á¸Àç
+	if (c3 > 0) {//3ë‹¨ê³„ ì¡´ì¬
 		for (int i = c0 + c1 + c2; i < c0 + c1 + c2 + c3; i++) {
 			for (int h = c0 + c1 + c2 + c3; h < c0 + c1 + c2 + c3 + c4; h++) {
 				if (array[i].b1 == array[h].b1) {
@@ -389,7 +389,7 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 				if (array[i].b4 == array[h].b4) {
 					count++;
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					first3++;
 					m1[mnumber].merging[0] = array[i].deimal;
 					m1[mnumber].merging[1] = array[h].deimal;
@@ -397,25 +397,25 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 						m1[mnumber].binary[0] = array[i].b1;
 					}
 					else {
-						m1[mnumber].binary[0] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[0] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b2 == array[h].b2) {
 						m1[mnumber].binary[1] = array[i].b2;
 					}
 					else {
-						m1[mnumber].binary[1] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[1] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b3 == array[h].b3) {
 						m1[mnumber].binary[2] = array[i].b3;
 					}
 					else {
-						m1[mnumber].binary[2] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[2] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					if (array[i].b4 == array[h].b4) {
 						m1[mnumber].binary[3] = array[i].b4;
 					}
 					else {
-						m1[mnumber].binary[3] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+						m1[mnumber].binary[3] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 					}
 					mnumber++;
 				}
@@ -423,11 +423,11 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 			}
 		}
 	}
-	//////////////////////////////////////////////////////////////////////////////////¸ÓÂ¡ÇÑ°Å Ãâ·Â
+	//////////////////////////////////////////////////////////////////////////////////ë¨¸ì§•í•œê±° ì¶œë ¥
 	key = getch();
 	if (key == 32) {
 		system("cls");
-		printf("1Â÷ Merging\n\n");
+		printf("1ì°¨ Merging\n\n");
 		for (int i = 0; i < first0 + first1 + first2 + first3; i++) {
 			if (enter == first0 || enter == first0 + first1 || enter == first0 + first1 + first2 || enter == first0 + first1 + first2 + first3) {
 				printf("=======================================\n");
@@ -447,15 +447,15 @@ void First_Merging()//¸ÓÂ¡ÇÒ ÇÔ¼ö
 	}
 	Fir_result = first0 + first1 + first2 + first3;
 }
-void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
+void Second_Merging()//ë‘ë²ˆì§¸ ë¨¸ì§•
 {
-	int count = 0;//¸ÓÂ¡ Á¶°Ç¿¡ ÀûÇÕÇÑÁö Ã£À» º¯¼ö
-	int mnumber = 0;//m2¼ø¼­
+	int count = 0;//ë¨¸ì§• ì¡°ê±´ì— ì í•©í•œì§€ ì°¾ì„ ë³€ìˆ˜
+	int mnumber = 0;//m2ìˆœì„œ
 	int enter = 0;
-	int same = 0;//Áßº¹Ã¼Å© ÇØÁÙ º¯¼ö
-	int Second = 0;//ÇöÀç±îÁö ¸î¹øÀÇ ¸¶Â¡ÀÌ ÀÌ·ïÁ³´ÂÁö Ã¼Å©ÇØÁÙ º¯¼ö
-	int temp[4] = { 0 };//Áßº¹È®ÀÎÇÏ·Á´Â p.i°ª Àá½Ã ³Ö¾îµÎ´Â ¹è¿­
-	int cnt = 0;//¶È°°Àº piÀÇ °³¼ö
+	int same = 0;//ì¤‘ë³µì²´í¬ í•´ì¤„ ë³€ìˆ˜
+	int Second = 0;//í˜„ì¬ê¹Œì§€ ëª‡ë²ˆì˜ ë§ˆì§•ì´ ì´ë¤„ì¡ŒëŠ”ì§€ ì²´í¬í•´ì¤„ ë³€ìˆ˜
+	int temp[4] = { 0 };//ì¤‘ë³µí™•ì¸í•˜ë ¤ëŠ” p.iê°’ ì ì‹œ ë„£ì–´ë‘ëŠ” ë°°ì—´
+	int cnt = 0;//ë˜‘ê°™ì€ piì˜ ê°œìˆ˜
 	if (first0 > 0) {
 		for (int i = 0; i < first0; i++) {
 			for (int h = first0; h < first0 + first1; h++) {
@@ -464,7 +464,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 						count++;
 					}
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					if (Second > 0) {
 						temp[0] = m1[i].merging[0];
 						temp[1] = m1[i].merging[1];
@@ -479,7 +479,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								}
 							}
 							if (same == 4) {
-								cnt++;//cnt¿¡ °ªÀÌ ÀÖÀ¸¸é Áßº¹µÇ´Â pi°¡ ÀÖ´Ù´Â°Í
+								cnt++;//cntì— ê°’ì´ ìˆìœ¼ë©´ ì¤‘ë³µë˜ëŠ” piê°€ ìˆë‹¤ëŠ”ê²ƒ
 							}
 							same = 0;
 						}
@@ -495,7 +495,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								m2[mnumber].binary[p] = m1[i].binary[p];
 							}
 							else {
-								m2[mnumber].binary[p] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+								m2[mnumber].binary[p] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 							}
 						}
 						mnumber++;
@@ -515,7 +515,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 						count++;
 					}
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					if (Second > 0) {
 						temp[0] = m1[i].merging[0];
 						temp[1] = m1[i].merging[1];
@@ -530,7 +530,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								}
 							}
 							if (same == 4) {
-								cnt++;//cnt¿¡ °ªÀÌ ÀÖÀ¸¸é Áßº¹µÇ´Â pi°¡ ÀÖ´Ù´Â°Í
+								cnt++;//cntì— ê°’ì´ ìˆìœ¼ë©´ ì¤‘ë³µë˜ëŠ” piê°€ ìˆë‹¤ëŠ”ê²ƒ
 							}
 							same = 0;
 						}
@@ -546,7 +546,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								m2[mnumber].binary[p] = m1[i].binary[p];
 							}
 							else {
-								m2[mnumber].binary[p] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+								m2[mnumber].binary[p] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 							}
 						}
 						mnumber++;
@@ -566,7 +566,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 						count++;
 					}
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					if (Second > 0) {
 						temp[0] = m1[i].merging[0];
 						temp[1] = m1[i].merging[1];
@@ -581,7 +581,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								}
 							}
 							if (same == 4) {
-								cnt++;//cnt¿¡ °ªÀÌ ÀÖÀ¸¸é Áßº¹µÇ´Â pi°¡ ÀÖ´Ù´Â°Í
+								cnt++;//cntì— ê°’ì´ ìˆìœ¼ë©´ ì¤‘ë³µë˜ëŠ” piê°€ ìˆë‹¤ëŠ”ê²ƒ
 							}
 							same = 0;
 						}
@@ -597,7 +597,7 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 								m2[mnumber].binary[p] = m1[i].binary[p];
 							}
 							else {
-								m2[mnumber].binary[p] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+								m2[mnumber].binary[p] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 							}
 						}
 						mnumber++;
@@ -609,11 +609,11 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 			}
 		}
 	}
-	//////////////////////////////////////////////////////////////////////////////////¸ÓÂ¡ÇÑ°Å Ãâ·Â
+	//////////////////////////////////////////////////////////////////////////////////ë¨¸ì§•í•œê±° ì¶œë ¥
 	key = getch();
 	if (key == 32) {
 		system("cls");
-		printf("2Â÷ Merging\n\n");
+		printf("2ì°¨ Merging\n\n");
 		for (int i = 0; i < mnumber; i++) {
 			if (enter == second0 || enter == second0 + second1 || enter == second0 + second1 + second2) {
 				printf("=======================================\n");
@@ -633,14 +633,14 @@ void Second_Merging()//µÎ¹øÂ° ¸ÓÂ¡
 	}
 	Sec_result = second0 + second1 + second2;
 }
-void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
+void Third_Merging()//ì„¸ë²ˆì§¸ ë¨¸ì§•
 {
-	int count = 0;//¸ÓÂ¡ Á¶°Ç¿¡ ÀûÇÕÇÑÁö Ã£À» º¯¼ö
-	int mnumber = 0;//m3¼ø¼­
+	int count = 0;//ë¨¸ì§• ì¡°ê±´ì— ì í•©í•œì§€ ì°¾ì„ ë³€ìˆ˜
+	int mnumber = 0;//m3ìˆœì„œ
 	int enter = 0;
-	int same = 0;//Áßº¹Ã¼Å© ÇØÁÙ º¯¼ö
-	int temp[8] = { 0 };//Áßº¹È®ÀÎÇÏ·Á´Â p.i°ª Àá½Ã ³Ö¾îµÎ´Â ¹è¿­
-	int cnt = 0;//¶È°°Àº piÀÇ °³¼ö
+	int same = 0;//ì¤‘ë³µì²´í¬ í•´ì¤„ ë³€ìˆ˜
+	int temp[8] = { 0 };//ì¤‘ë³µí™•ì¸í•˜ë ¤ëŠ” p.iê°’ ì ì‹œ ë„£ì–´ë‘ëŠ” ë°°ì—´
+	int cnt = 0;//ë˜‘ê°™ì€ piì˜ ê°œìˆ˜
 	if (second0 > 0 && second1 > 0) {
 		for (int i = 0; i < second0; i++) {
 			for (int h = second0; h < second0 + second1; h++) {
@@ -649,7 +649,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 						count++;
 					}
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					if (third0 > 0) {
 						for (int y = 0; y < 4; y++) {
 							temp[y] = m2[i].merging[y];
@@ -667,7 +667,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 								}
 							}
 							if (same == 8) {
-								cnt++;//cnt¿¡ °ªÀÌ ÀÖÀ¸¸é Áßº¹µÇ´Â pi°¡ ÀÖ´Ù´Â°Í
+								cnt++;//cntì— ê°’ì´ ìˆìœ¼ë©´ ì¤‘ë³µë˜ëŠ” piê°€ ìˆë‹¤ëŠ”ê²ƒ
 							}
 							same = 0;
 						}
@@ -685,7 +685,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 								m3[mnumber].binary[p] = m2[i].binary[p];
 							}
 							else {
-								m3[mnumber].binary[p] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+								m3[mnumber].binary[p] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 							}
 						}
 						mnumber++;
@@ -705,7 +705,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 						count++;
 					}
 				}
-				if (count == 3) {//1°³¸¸ ´Ù¸¦¶§ ¸ÓÂ¡
+				if (count == 3) {//1ê°œë§Œ ë‹¤ë¥¼ë•Œ ë¨¸ì§•
 					if (third1 > 0) {
 						for (int y = 0; y < 4; y++) {
 							temp[y] = m2[i].merging[y];
@@ -723,7 +723,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 								}
 							}
 							if (same == 8) {
-								cnt++;//cnt¿¡ °ªÀÌ ÀÖÀ¸¸é Áßº¹µÇ´Â pi°¡ ÀÖ´Ù´Â°Í
+								cnt++;//cntì— ê°’ì´ ìˆìœ¼ë©´ ì¤‘ë³µë˜ëŠ” piê°€ ìˆë‹¤ëŠ”ê²ƒ
 							}
 							same = 0;
 						}
@@ -741,7 +741,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 								m3[mnumber].binary[p] = m2[i].binary[p];
 							}
 							else {
-								m3[mnumber].binary[p] = 9;//³ªÁß¿¡ -·Î ¹Ù²ã¼­ Ãâ·Â
+								m3[mnumber].binary[p] = 9;//ë‚˜ì¤‘ì— -ë¡œ ë°”ê¿”ì„œ ì¶œë ¥
 							}
 						}
 						mnumber++;
@@ -754,11 +754,11 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 		}
 	}
 	Third = third0 + third1;
-	//////////////////////////////////////////////////////////////////////////////////¸ÓÂ¡ÇÑ°Å Ãâ·Â
+	//////////////////////////////////////////////////////////////////////////////////ë¨¸ì§•í•œê±° ì¶œë ¥
 	key = getch();
 	if (key == 32) {
 		system("cls");
-		printf("3Â÷ Merging\n\n");
+		printf("3ì°¨ Merging\n\n");
 		for (int i = 0; i < Third; i++) {
 			if (enter == third0) {
 				printf("=======================================\n");
@@ -781,7 +781,7 @@ void Third_Merging()//¼¼¹øÂ° ¸ÓÂ¡
 		}
 	}
 }
-void Fourth_Merging()//³×¹øÂ° ¸ÓÂ¡
+void Fourth_Merging()//ë„¤ë²ˆì§¸ ë¨¸ì§•
 {
 	for (int j = 0; j < 16; j++) {
 		m4[0].merging[j] = j;
@@ -792,7 +792,7 @@ void Fourth_Merging()//³×¹øÂ° ¸ÓÂ¡
 	key = getch();
 	if (key == 32) {
 		system("cls");
-		printf(" 4Â÷ Merging\n\n");
+		printf(" 4ì°¨ Merging\n\n");
 		printf(" (");
 		for (int i = 0; i < 16; i++) {
 			printf("%d ", m4[0].merging[i]);
@@ -804,7 +804,7 @@ void Fourth_Merging()//³×¹øÂ° ¸ÓÂ¡
 		printf("\n");
 	}
 }
-void Search_pi() {//p.i Ã£±â
+void Search_pi() {//p.i ì°¾ê¸°
 	int count = 0;
 	int same = 0;
 	int i;
@@ -820,7 +820,7 @@ void Search_pi() {//p.i Ã£±â
 		key = getch();
 		if (key == 32) {
 			system("cls");
-			printf(" Prime implicants Ãâ·Â\n\n");
+			printf(" Prime implicants ì¶œë ¥\n\n");
 			printf("(");
 			for (int k = 0; k < 16; k++) {
 				printf(" %d", pi[0].merging[k]);
@@ -828,7 +828,7 @@ void Search_pi() {//p.i Ã£±â
 			printf(")");
 		}
 	}
-	else if (Sec_result == 0) {//µÎ¹øÂ° ¸ÓÂ¡ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½
+	else if (Sec_result == 0) {//ë‘ë²ˆì§¸ ë¨¸ì§•ì´ ì¼ì–´ë‚˜ì§€ ì•ŠìŒ
 		pnumber = Fir_result;
 		for (int h = 0; h < pnumber; h++) {
 			for (int k = 0; k < 2; k++) {
@@ -841,26 +841,26 @@ void Search_pi() {//p.i Ã£±â
 		}
 	}
 	else {
-		if (Third > 0) {//¼¼¹øÂ° ¸ÓÂ¡ÀÌ ÀÏ¾î³µÀ»°æ¿ì
-			i = 0;//m3¹è¿­ ¼ø¼­
+		if (Third > 0) {//ì„¸ë²ˆì§¸ ë¨¸ì§•ì´ ì¼ì–´ë‚¬ì„ê²½ìš°
+			i = 0;//m3ë°°ì—´ ìˆœì„œ
 			while (count < Sec_result) {
-				for (int j = 0; j < 4; j++) {//m2¹è¿­ merging¹è¿­ ¼ø¼­
-					for (int k = 0; k < 8; k++) {//m3 ¹è¿­ merging¹è¿­ ¼ø¼­
+				for (int j = 0; j < 4; j++) {//m2ë°°ì—´ mergingë°°ì—´ ìˆœì„œ
+					for (int k = 0; k < 8; k++) {//m3 ë°°ì—´ mergingë°°ì—´ ìˆœì„œ
 						if (m3[i].merging[k] == m2[count].merging[j]) {
 							same++;
 						}
 					}
 				}
-				if (same == 4) {//¶È°°Àº°Ô ÀÖÀ½ ´õ º¼ ÇÊ¿äX
+				if (same == 4) {//ë˜‘ê°™ì€ê²Œ ìˆìŒ ë” ë³¼ í•„ìš”X
 					same = 0;
 					i = 0;
 					count++;
 				}
 				else {
-					if (i == Third - 1) {//¶È°°Àº°Ô ¾øÀ½ pi·Î Ãß°¡
+					if (i == Third - 1) {//ë˜‘ê°™ì€ê²Œ ì—†ìŒ pië¡œ ì¶”ê°€
 						for (int j = 0; j < 4; j++) {
-							pi[pnumber].merging[j] = m2[count].merging[j];//pi.merging¹è¿­¿¡ Ãß°¡·Î ³Ö¾îÁÖ±â
-							pi[pnumber].binary[j] = m2[count].binary[j];//pi.binary¹è¿­¿¡ ÀÌÁø¼ö ³Ö¾îÁÖ±â
+							pi[pnumber].merging[j] = m2[count].merging[j];//pi.mergingë°°ì—´ì— ì¶”ê°€ë¡œ ë„£ì–´ì£¼ê¸°
+							pi[pnumber].binary[j] = m2[count].binary[j];//pi.binaryë°°ì—´ì— ì´ì§„ìˆ˜ ë„£ì–´ì£¼ê¸°
 						}
 						pi[pnumber].merging_num = 4;
 						i = 0;
@@ -873,7 +873,7 @@ void Search_pi() {//p.i Ã£±â
 					same = 0;
 				}
 			}
-			for (int h = 0; h < Third; h++) {//m3¿¡ ÀÖ´Â piµé pi¹è¿­¿¡ ³Ö¾îÁÖ±â
+			for (int h = 0; h < Third; h++) {//m3ì— ìˆëŠ” pië“¤ pië°°ì—´ì— ë„£ì–´ì£¼ê¸°
 				for (int k = 0; k < 8; k++) {
 					pi[pnumber].merging[k] = m3[h].merging[k];
 				}
@@ -884,33 +884,33 @@ void Search_pi() {//p.i Ã£±â
 				pnumber++;
 			}
 		}
-		else if (Third == 0) {//¼¼¹øÀç ¸ÓÂ¡ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½
+		else if (Third == 0) {//ì„¸ë²ˆì¬ ë¨¸ì§•ì´ ì¼ì–´ë‚˜ì§€ ì•ŠìŒ
 			count = 0;
 			pnumber = 0;
 			same = 0;
-			i = 0;//m2¹è¿­ ¼ø¼­
+			i = 0;//m2ë°°ì—´ ìˆœì„œ
 			while (count < Fir_result) {
-				for (int j = 0; j < 2; j++) {//m1¹è¿­ merging¹è¿­ ¼ø¼­
-					for (int k = 0; k < 4; k++) {//m2 ¹è¿­ merging¹è¿­ ¼ø¼­
+				for (int j = 0; j < 2; j++) {//m1ë°°ì—´ mergingë°°ì—´ ìˆœì„œ
+					for (int k = 0; k < 4; k++) {//m2 ë°°ì—´ mergingë°°ì—´ ìˆœì„œ
 						if (m2[i].merging[k] == m1[count].merging[j]) {
 							same++;
 						}
 					}
 				}
-				if (same == 2) {//¶È°°Àº°Ô ÀÖÀ½ ´õ º¼ ÇÊ¿äX
+				if (same == 2) {//ë˜‘ê°™ì€ê²Œ ìˆìŒ ë” ë³¼ í•„ìš”X
 					same = 0;
 					i = 0;
 					count++;
 				}
 				else {
-					if (i == Sec_result - 1) {//¶È°°Àº°Ô ¾øÀ½ pi·Î Ãß°¡
+					if (i == Sec_result - 1) {//ë˜‘ê°™ì€ê²Œ ì—†ìŒ pië¡œ ì¶”ê°€
 						for (int j = 0; j < 2; j++) {
 							pi[pnumber].merging[j] = m1[count].merging[j];
-						}//pi.merging¹è¿­¿¡ Ãß°¡·Î ³Ö¾îÁÖ±â
+						}//pi.mergingë°°ì—´ì— ì¶”ê°€ë¡œ ë„£ì–´ì£¼ê¸°
 						pi[pnumber].merging_num = 2;
 						for (int j = 0; j < 4; j++) {
 							pi[pnumber].binary[j] = m1[count].binary[j];
-						}//pi.binary¹è¿­¿¡ ÀÌÁø¼ö ³Ö¾îÁÖ±â
+						}//pi.binaryë°°ì—´ì— ì´ì§„ìˆ˜ ë„£ì–´ì£¼ê¸°
 						i = 0;
 						pnumber++;
 						count++;
@@ -921,7 +921,7 @@ void Search_pi() {//p.i Ã£±â
 					same = 0;
 				}
 			}
-			for (int h = 0; h < Sec_result; h++) {//m2¿¡ ÀÖ´Â piµé pi¹è¿­¿¡ ³Ö¾îÁÖ±â
+			for (int h = 0; h < Sec_result; h++) {//m2ì— ìˆëŠ” pië“¤ pië°°ì—´ì— ë„£ì–´ì£¼ê¸°
 				for (int k = 0; k < 4; k++) {
 					pi[pnumber].merging[k] = m2[h].merging[k];
 					pi[pnumber].binary[k] = m2[h].binary[k];
@@ -930,10 +930,10 @@ void Search_pi() {//p.i Ã£±â
 				pnumber++;
 			}
 		}
-		key = getch();/////////////////pi°á°ú °ª Ãâ·Â
+		key = getch();/////////////////piê²°ê³¼ ê°’ ì¶œë ¥
 		if (key == 32) {
 			system("cls");
-			printf(" Prime implicants Ãâ·Â\n\n");
+			printf(" Prime implicants ì¶œë ¥\n\n");
 			for (int h = 0; h < pnumber; h++) {
 				printf(" ( ");
 				for (int j = 0; j < pi[h].merging_num; j++) {
@@ -946,13 +946,13 @@ void Search_pi() {//p.i Ã£±â
 }
 void Search_epi()
 {
-	int porder = 0;//pi¼ø¼­
-	int enumber = 0;//epi¼ø¼­
-	int arr[20][16] = { 0 };//c.xÀÓ½Ã·Î ÀÌÂ÷¿ø¹è¿­¿¡ ³Ö¾îÁÙ ¹è¿­
+	int porder = 0;//piìˆœì„œ
+	int enumber = 0;//epiìˆœì„œ
+	int arr[20][16] = { 0 };//c.xì„ì‹œë¡œ ì´ì°¨ì›ë°°ì—´ì— ë„£ì–´ì¤„ ë°°ì—´
 	int count = 0, del = 0;
 	int essential = 0;
 	int same = 0, eorder = 0, in = 0;
-	char last[10][4] = { 0 };//¸¶Áö¸· ¼ö½Ä(abcd a'b'c'd')³Ö¾îÁÙ ¹è¿­
+	char last[10][4] = { 0 };//ë§ˆì§€ë§‰ ìˆ˜ì‹(abcd a'b'c'd')ë„£ì–´ì¤„ ë°°ì—´
 	if (pnumber != 1) {
 		while (porder < pnumber) {
 			for (int i = 0; i < pi[porder].merging_num; i++) {
@@ -963,15 +963,15 @@ void Search_epi()
 				}
 			}
 			porder++;
-		}/////////////////////////µµÇ¥¾È xÇ¥½ÃÇØÁÖ±â
-		key = getch();//////////////////////////////////////////////////////µÍÇ¥ Ãâ·Â
+		}/////////////////////////ë„í‘œì•ˆ xí‘œì‹œí•´ì£¼ê¸°
+		key = getch();//////////////////////////////////////////////////////ë´í‘œ ì¶œë ¥
 		if (key == 32) {
 			system("cls");
 			printf("                       ");
 			for (int i = 0; i < num; i++) {
 				printf("%d  ", input[i].decimal);
 			}
-			printf("\n\n");//Ç¥ ¸Ç À§ÁÙ Ãâ·Â(ÀÔ·ÂÇÑ ½ÊÁø¼öµé)
+			printf("\n\n");//í‘œ ë§¨ ìœ„ì¤„ ì¶œë ¥(ì…ë ¥í•œ ì‹­ì§„ìˆ˜ë“¤)
 			for (int i = 0; i < pnumber; i++) {
 				printf(" (");
 				for (int j = 0; j < pi[i].merging_num; j++) {
@@ -995,7 +995,7 @@ void Search_epi()
 			}
 			printf("%d", pnumber);
 		}
-		///////////////////////////////////////////////////epi °Ë»ö
+		///////////////////////////////////////////////////epi ê²€ìƒ‰
 		for (int i = 0; i < pnumber; i++) {
 			for (int j = 0; j < num; j++) {
 				arr[i][j] = c[i].x[j];
@@ -1003,13 +1003,13 @@ void Search_epi()
 		}
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < pnumber; j++) {
-				if (arr[j][i] == 1) {//0 À¸·Î Ç¥½ÃµÇ´Â °æ¿ì
+				if (arr[j][i] == 1) {//0 ìœ¼ë¡œ í‘œì‹œë˜ëŠ” ê²½ìš°
 					count++;
 				}
 			}
-			if (count == 1) {//ÇÑ ¿­¿¡ 0ÀÌ ÇÑ°³
+			if (count == 1) {//í•œ ì—´ì— 0ì´ í•œê°œ
 				for (int h = 0; h < pnumber; h++) {
-					if (arr[h][i] == 1) {//0ÀÌ ÇÑ°³ÀÎ ¿­¿¡¼­ 0ÀÇ À§Ä¡
+					if (arr[h][i] == 1) {//0ì´ í•œê°œì¸ ì—´ì—ì„œ 0ì˜ ìœ„ì¹˜
 						if (enumber > 0) {
 							for (int s = 0; s < enumber; s++) {
 								if (epi[s].pi_order == h) {
@@ -1021,12 +1021,12 @@ void Search_epi()
 							in = 0;
 						}
 						if (in == 0) {
-							for (int k = 0; k < pi[h].merging_num; k++) {//merging ³Ö¾îÁÖ±â
+							for (int k = 0; k < pi[h].merging_num; k++) {//merging ë„£ì–´ì£¼ê¸°
 								epi[enumber].merging[k] = pi[h].merging[k];
 							}
 							epi[enumber].merging_num = pi[h].merging_num;
 							epi[enumber].pi_order = h;
-							for (int k = 0; k < 4; k++) {// ÀÌÁø¼ö ³Ö¾îÁÖ±â
+							for (int k = 0; k < 4; k++) {// ì´ì§„ìˆ˜ ë„£ì–´ì£¼ê¸°
 								epi[enumber].binary[k] = pi[h].binary[k];
 							}
 							enumber++;
@@ -1037,7 +1037,7 @@ void Search_epi()
 			}
 			count = 0;
 		}
-		//////////////////////////////////////////////Ãß°¡ epi °Ë»ö
+		//////////////////////////////////////////////ì¶”ê°€ epi ê²€ìƒ‰
 		eorder = enumber;
 		while (essential < pnumber) {
 			for (int j = 0; j < pi[essential].merging_num; j++) {
@@ -1066,7 +1066,7 @@ void Search_epi()
 		key = getch();
 		if (key == 32) {
 			system("cls");
-			printf(" ÃÖÁ¾ epi\n\n");
+			printf(" ìµœì¢… epi\n\n");
 			for (int i = 0; i < enumber; i++) {
 				printf("( ");
 				for (int h = 0; h < epi[i].merging_num; h++) {
@@ -1135,7 +1135,7 @@ void Search_epi()
 			printf("\n");
 		}
 		printf("\n");
-		printf("   ÃÖÁ¾: ");
+		printf("   ìµœì¢…: ");
 		for (int i = 0; i < enumber; i++) {
 			for (int k = 0; k < 4; k++) {
 				printf(" %c", last[i][k]);
