@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-int map[16][16] = {//0=ºó°ø°£ 1=¸ñÀûÁö 2=Áö³ª¿Â °ø°£ 3=º®
+int map[16][16] = {//0=ë¹ˆê³µê°„ 1=ëª©ì ì§€ 2=ì§€ë‚˜ì˜¨ ê³µê°„ 3=ë²½
 	{ 0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0 },
 	{ 0,3,3,0,3,0,3,3,3,3,3,0,3,0,3,0 },
 	{ 0,0,3,0,0,0,0,0,0,0,3,0,3,0,3,3 },
@@ -29,11 +29,11 @@ int User_Move();
 void Pop();
 
 int main(void) {
-	PrintMap();//¸ÊÃâ·Â
+	PrintMap();//ë§µì¶œë ¥
 	
 	Move();
 
-	printf("\n²ôÀ¸À¸À¸À¸À¸À¸ÀÄ\n");
+	printf("\në„ìœ¼ìœ¼ìœ¼ìœ¼ìœ¼ìœ¼ì•\n");
 }
 
 void PrintMap() {
@@ -44,16 +44,16 @@ void PrintMap() {
 		for (int j = 0; j < 16; j++) {
 			if (user_y == i && user_x == j)
 			{
-				printf("¡Ú");
+				printf("â˜…");
 			}
-			else if (map[i][j] == 1) printf("¢¾");
+			else if (map[i][j] == 1) printf("â™¥");
 			else if (map[i][j] < 3)
 			{
-				printf("¡¡");
+				printf("ã€€");
 			}
 			else if (map[i][j] == 3)
 			{
-				printf("¡á");
+				printf("â– ");
 			}
 		}
 		printf("\n");
@@ -77,10 +77,10 @@ void Move() {
 		int move;
 		move=User_move();
 
-		if (move == 0) {//Á¾·á
+		if (move == 0) {//ì¢…ë£Œ
 			break;
 		}
-		else if (move == 1) {//¸·´Ù¸¥±æ
+		else if (move == 1) {//ë§‰ë‹¤ë¥¸ê¸¸
 			Pop();
 		}
 		PrintMap();
@@ -89,31 +89,31 @@ void Move() {
 }
 int User_move() {
 	int count = 0;
-	if (map[user_y][user_x] == 1) return 0;//¸ñÀûÁö µµÂø
+	if (map[user_y][user_x] == 1) return 0;//ëª©ì ì§€ ë„ì°©
 	else {
-		map[user_y][user_x] = 2;//Áö³ª¿Â °ø°£ Ç¥½ÃÇÏ±â
-		if (map[user_y - 1][user_x] < 2 && user_y>0) {//ºÏ
-			Push();//¿òÁ÷ÀÌ±â Àü À§Ä¡ ½ºÅÃ¿¡ ³Ö±â
+		map[user_y][user_x] = 2;//ì§€ë‚˜ì˜¨ ê³µê°„ í‘œì‹œí•˜ê¸°
+		if (map[user_y - 1][user_x] < 2 && user_y>0) {//ë¶
+			Push();//ì›€ì§ì´ê¸° ì „ ìœ„ì¹˜ ìŠ¤íƒì— ë„£ê¸°
 			user_y--;
 			count++;
 		}
-		else if (map[user_y][user_x + 1] < 2 && user_x<15) {//µ¿
-			Push();//¿òÁ÷ÀÌ±â Àü À§Ä¡ ½ºÅÃ¿¡ ³Ö±â
+		else if (map[user_y][user_x + 1] < 2 && user_x<15) {//ë™
+			Push();//ì›€ì§ì´ê¸° ì „ ìœ„ì¹˜ ìŠ¤íƒì— ë„£ê¸°
 			user_x++;
 			count++;
 		}
-		else if (map[user_y + 1][user_x] < 2 && user_y<15) {//³²
-			Push();//¿òÁ÷ÀÌ±â Àü À§Ä¡ ½ºÅÃ¿¡ ³Ö±â
+		else if (map[user_y + 1][user_x] < 2 && user_y<15) {//ë‚¨
+			Push();//ì›€ì§ì´ê¸° ì „ ìœ„ì¹˜ ìŠ¤íƒì— ë„£ê¸°
 			user_y++;
 			count++;
 		}
-		else if (map[user_y][user_x - 1] < 2 && user_x>0) {//¼­
-			Push();//¿òÁ÷ÀÌ±â Àü À§Ä¡ ½ºÅÃ¿¡ ³Ö±â
+		else if (map[user_y][user_x - 1] < 2 && user_x>0) {//ì„œ
+			Push();//ì›€ì§ì´ê¸° ì „ ìœ„ì¹˜ ìŠ¤íƒì— ë„£ê¸°
 			user_x--;
 			count++;
 		}
 	}
 
-	if (count == 0) return 1;//¸·´Ù¸¥±æ µµÂø
-	else return 2;//»ç¿ëÀÚ ¿òÁ÷ÀÓ
+	if (count == 0) return 1;//ë§‰ë‹¤ë¥¸ê¸¸ ë„ì°©
+	else return 2;//ì‚¬ìš©ì ì›€ì§ì„
 }
