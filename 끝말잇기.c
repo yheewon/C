@@ -4,15 +4,15 @@
 char arr3[10][20];
 int idx = 0;
 void Print();
-void Remove();//arr3 10ÇàÀÌ ³Ñ¾î°¡¸é ¸ÇÀ§¿¡¼­ ºÎÅÍ »ç¶óÁö°Ô ÇÏ±â
+void Remove();//arr3 10í–‰ì´ ë„˜ì–´ê°€ë©´ ë§¨ìœ„ì—ì„œ ë¶€í„° ì‚¬ë¼ì§€ê²Œ í•˜ê¸°
 int main(void)
 {
 	char arr1[20] = "dog";
 	char arr2[20];
-	int last;//¸¶Áö¸· ±ÛÀÚ µé¾îÀÖÀ» ¹è¿­ À§Ä¡
+	int last;//ë§ˆì§€ë§‰ ê¸€ìž ë“¤ì–´ìžˆì„ ë°°ì—´ ìœ„ì¹˜
 	printf("---------------------------------\n");
-	strcpy_s(arr3[0], sizeof(arr2), arr1);//arr3¹è¿­ 0Çà¿¡ dog³Ö±â
-	printf("%s\n", arr3[0]);//dogÃâ·Â
+	strcpy_s(arr3[0], sizeof(arr2), arr1);//arr3ë°°ì—´ 0í–‰ì— dogë„£ê¸°
+	printf("%s\n", arr3[0]);//dogì¶œë ¥
 	while (1)
 	{
 		Remove();
@@ -21,7 +21,7 @@ int main(void)
 		idx++;
 		if (arr1[last] != arr2[0])
 		{
-			printf("°ÔÀÓÁ¾·á\n");
+			printf("ê²Œìž„ì¢…ë£Œ\n");
 			break;
 		}
 		if (idx >= 11)
@@ -35,7 +35,7 @@ int main(void)
 		idx++;
 		if (arr2[last] != arr1[0])
 		{
-			printf("°ÔÀÓÁ¾·á\n");
+			printf("ê²Œìž„ì¢…ë£Œ\n");
 			break;
 		}
 		if (idx >= 11)
@@ -60,11 +60,11 @@ void Print()
 }
 void Remove()
 {
-	if (idx >= 10)//arr3 10ÇàÀÌ ³Ñ¾î°¡¸é ¸ÇÀ§¿¡¼­ ºÎÅÍ »ç¶óÁö°Ô ÇÏ±â
+	if (idx >= 10)//arr3 10í–‰ì´ ë„˜ì–´ê°€ë©´ ë§¨ìœ„ì—ì„œ ë¶€í„° ì‚¬ë¼ì§€ê²Œ í•˜ê¸°
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			strcpy_s(arr3[i], sizeof(arr3[i]), arr3[i + 1]);//i=0: arr3[1]ÀÇ ¹®ÀÚ¿­À» arr3[0]¿¡ º¹»ç
+			strcpy_s(arr3[i], sizeof(arr3[i]), arr3[i + 1]);//i=0: arr3[1]ì˜ ë¬¸ìžì—´ì„ arr3[0]ì— ë³µì‚¬
 		}
 		system("cls");
 		Print();
