@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS    // strcpy º¸¾È °æ°í·Î ÀÎÇÑ ÄÄÆÄÀÏ ¿¡·¯ ¹æÁö
+#define _CRT_SECURE_NO_WARNINGS    // strcpy ë³´ì•ˆ ê²½ê³ ë¡œ ì¸í•œ ì»´íŒŒì¼ ì—ëŸ¬ ë°©ì§€
 #include <stdio.h>
 #include <string.h>
 #include<Windows.h>
@@ -8,8 +8,8 @@ typedef struct Person {
 	struct person*next;
 }person;
 struct Person *temp;
-void Addnode(person*head);//³ëµå Ãß°¡ ÇÔ¼ö
-void Print(person*head);//Ãâ·ÂÇÔ¼ö
+void Addnode(person*head);//ë…¸ë“œ ì¶”ê°€ í•¨ìˆ˜
+void Print(person*head);//ì¶œë ¥í•¨ìˆ˜
 int main()
 {
 	person*head = malloc(sizeof(person));
@@ -23,15 +23,15 @@ int main()
 void Addnode(person*head)
 {
 	person*newnode = malloc(sizeof(person));
-	int check;//ÀÌ¸§ ºñ±³ÇØÁÙ º¯¼ö
-	int check2;//ÇÐ¹ø ºñ±³ÇØÁÙ º¯¼ö
+	int check;//ì´ë¦„ ë¹„êµí•´ì¤„ ë³€ìˆ˜
+	int check2;//í•™ë²ˆ ë¹„êµí•´ì¤„ ë³€ìˆ˜
 	person *per = head->next;
 	person *p = head;
 	printf("-------------\n");
-	printf("ÀÌ¸§ÀÔ·Â:");
+	printf("ì´ë¦„ìž…ë ¥:");
 	scanf("%s", &newnode->name);
 	printf("\n");
-	printf("ÇÐ¹øÀÔ·Â:");
+	printf("í•™ë²ˆìž…ë ¥:");
 	scanf("%s", &newnode->number);
 	printf("-------------\n\n");
 	if (per == NULL)
@@ -102,11 +102,11 @@ void Print(person*head)
 {
 	person*node;
 	node = head->next;
-	puts("Ãâ·Â");
+	puts("ì¶œë ¥");
 	while (node != NULL)
 	{
 		printf("------------------------------\n");
-		printf("ÀÌ¸§: %s   ÇÐ¹ø: %s\n", node->name, node->number);
+		printf("ì´ë¦„: %s   í•™ë²ˆ: %s\n", node->name, node->number);
 		printf("------------------------------\n");
 		node = node->next;
 	}
