@@ -13,13 +13,13 @@ typedef struct book {
 book *temp;
 int count = 0;
 
-void swap(book *arr[], int left, int right)//½º¿Ò
+void swap(book *arr[], int left, int right)//ìŠ¤ì™‘
 {
 	temp = arr[left];
 	arr[left] = arr[right];
 	arr[right] = temp;
 }
-int partition(book *arr[], int left, int right) //ÆÄÆ¼¼Ç
+int partition(book *arr[], int left, int right) //íŒŒí‹°ì…˜
 {
 	int pivot;
 	int low, high;
@@ -43,7 +43,7 @@ int partition(book *arr[], int left, int right) //ÆÄÆ¼¼Ç
 
 	return high;
 }
-void quick_sort(book* arr[], int left, int right) // Äü¼ÒÆ®
+void quick_sort(book* arr[], int left, int right) // í€µì†ŒíŠ¸
 {
 	if (left < right)
 	{
@@ -53,7 +53,7 @@ void quick_sort(book* arr[], int left, int right) // Äü¼ÒÆ®
 	}
 
 }
-book *link(book *arr[], book*head, int coutn) //¸µÅ©Á¤·Ä
+book *link(book *arr[], book*head, int coutn) //ë§í¬ì •ë ¬
 {
 	head = head->next;
 	for (int i = 1; i < count ; i++)
@@ -72,7 +72,7 @@ book *link(book *arr[], book*head, int coutn) //¸µÅ©Á¤·Ä
 }
 
 
-//µÚ·Î Ãß°¡ÇÒ¶§
+//ë’¤ë¡œ ì¶”ê°€í• ë•Œ
 book* AddNode(book* head)
 {
 	book* newnode = malloc(sizeof(book));
@@ -82,19 +82,19 @@ book* AddNode(book* head)
 		head = head->next;
 	}
 	while (getchar() != '\n');
-	printf("Á¦¸ñ:");
+	printf("ì œëª©:");
 	gets(newnode->title);
-	printf("ÀúÀÚ:");
+	printf("ì €ìž:");
 	gets(newnode->auther);
-	printf("ÄÚµå:");
+	printf("ì½”ë“œ:");
 	gets(newnode->code);
-	printf("°¡°Ý:");
+	printf("ê°€ê²©:");
 	scanf_s("%d", &newnode->price);
 
 	head -> next = newnode;
 	newnode -> next = NULL;
 }
-//Ãâ·Â
+//ì¶œë ¥
 int PrintNode(book* head,int count2)
 {
 	book* start;
@@ -102,14 +102,14 @@ int PrintNode(book* head,int count2)
 	start = head->next;
 		while (start!= NULL)
 		{
-			printf("%d.Á¦¸ñ:%s  ÀúÀÚ:%s  ÄÚµå:%s  °¡°Ý:%d", i, start->title, start->auther, start->code, start->price);
+			printf("%d.ì œëª©:%s  ì €ìž:%s  ì½”ë“œ:%s  ê°€ê²©:%d", i, start->title, start->auther, start->code, start->price);
 			printf("\n\n");
 			start = start->next;
 			i++;
 		}
 
 }
-//»èÁ¦
+//ì‚­ì œ
 book* DeletNode(book *head)
 {
 	char title[20];
@@ -121,7 +121,7 @@ book* DeletNode(book *head)
 
 
 	while (getchar() != '\n');
-	printf("»èÁ¦ÇÒ Á¦¸ñ¸í:");
+	printf("ì‚­ì œí•  ì œëª©ëª…:");
 	gets(title);
 	while (strcmp(start->title, title) != 0 && start->next != NULL)
 	{
@@ -130,7 +130,7 @@ book* DeletNode(book *head)
 	}
 	if (start->next == NULL)
 	{
-		printf("¿À·ùÀÔ´Ï´Ù\n");
+		printf("ì˜¤ë¥˜ìž…ë‹ˆë‹¤\n");
 		count++;
 		return 0;
 	}
@@ -138,60 +138,60 @@ book* DeletNode(book *head)
 	free(start);
 
 }
-//¸Þ´º
+//ë©”ë‰´
 void menu()
 {
 	printf("****************************\t\t\n");
-	printf("*1.Ã¥Á¤º¸ ÀÔ·Â             *\t\t\n");
-	printf("*2.Ã¥Á¤º¸ Ãâ·Â             *\t\t\n");
-	printf("*3.Ã¥Á¤º¸ °Ë»ö(µµ¼­¸í)     *\t\t\n");
-	printf("*4.Ã¥Á¤º¸ °Ë»ö(ÄÚµå¸í)     *\t\t\n");
-	printf("*5.Ã¥Á¤º¸ ¼öÁ¤             *\t\t\n");
-	printf("*6.Ã¥Á¤º¸ »èÁ¦             *\t\t\n");
-	printf("*7.Ã¥Á¤º¸ Á¤·Ä(°¡°Ý¼ø)     *\t\t\n");
-	printf("*0.Á¾·á                    *\t\t\n");
+	printf("*1.ì±…ì •ë³´ ìž…ë ¥             *\t\t\n");
+	printf("*2.ì±…ì •ë³´ ì¶œë ¥             *\t\t\n");
+	printf("*3.ì±…ì •ë³´ ê²€ìƒ‰(ë„ì„œëª…)     *\t\t\n");
+	printf("*4.ì±…ì •ë³´ ê²€ìƒ‰(ì½”ë“œëª…)     *\t\t\n");
+	printf("*5.ì±…ì •ë³´ ìˆ˜ì •             *\t\t\n");
+	printf("*6.ì±…ì •ë³´ ì‚­ì œ             *\t\t\n");
+	printf("*7.ì±…ì •ë³´ ì •ë ¬(ê°€ê²©ìˆœ)     *\t\t\n");
+	printf("*0.ì¢…ë£Œ                    *\t\t\n");
 	printf("****************************\t\t\n");
 }
-//Ã¥ÀÌ¸§À¸·Î Ã£±â
+//ì±…ì´ë¦„ìœ¼ë¡œ ì°¾ê¸°
 book* SerchNode_Title(book* head)
 {
 	book*start;
 	char title[20];
 	start = head->next;
 	while (getchar() != '\n');
-	printf("µµ¼­¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä\n");
+	printf("ë„ì„œëª…ì„ ìž…ë ¥í•˜ì„¸ìš”\n");
 	gets(title);
 	while (strcmp(start->title, title) != 0 && start->next != NULL)
 	{
 		start = start->next;
 	}
-	printf("Á¦¸ñ:%s  ÀúÀÚ:%s  ÄÚµå:%s  °¡°Ý:%d\n", start->title, start->auther, start->code, start->price);
+	printf("ì œëª©:%s  ì €ìž:%s  ì½”ë“œ:%s  ê°€ê²©:%d\n", start->title, start->auther, start->code, start->price);
 
 }
-//ÄÚµå¸íÀ¸·Î Ã£±â
+//ì½”ë“œëª…ìœ¼ë¡œ ì°¾ê¸°
 book*SerchNode_Code(book*head)
 {
 	book*start; 
 	char code[20];
 	start = head->next;
 	while (getchar() != '\n');
-	printf("ÄÚµå¸¦ ÀÔ·ÂÇÏ¼¼¿ä\n");
+	printf("ì½”ë“œë¥¼ ìž…ë ¥í•˜ì„¸ìš”\n");
 	gets(code);
 	while (strcmp(start->code, code) != 0 && start->next != NULL)
 	{
 		start = start->next;
 	}
-	printf("Á¦¸ñ:%s  ÀúÀÚ:%s  ÄÚµå:%s  °¡°Ý:%d\n", start->title, start->auther, start->code, start->price);
+	printf("ì œëª©:%s  ì €ìž:%s  ì½”ë“œ:%s  ê°€ê²©:%d\n", start->title, start->auther, start->code, start->price);
 
 }
-//Ã¥ÀÌ¸§À¸·Î Ã£°í ¼öÁ¤
+//ì±…ì´ë¦„ìœ¼ë¡œ ì°¾ê³  ìˆ˜ì •
 book*ChangeNode(book*head)
 {
 	book*start;
 	char title[20];
 	start = head->next;
 	while (getchar() != '\n');
-	printf("µµ¼­¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä\n");
+	printf("ë„ì„œëª…ì„ ìž…ë ¥í•˜ì„¸ìš”\n");
 	gets(title);
 	while (strcmp(start->title, title) != 0 && start->next != NULL)
 	{
@@ -199,13 +199,13 @@ book*ChangeNode(book*head)
 	}
 	while (getchar() != '\n');
 
-	printf("Á¦¸ñ:");
+	printf("ì œëª©:");
 	gets(start->title);
-	printf("ÀúÀÚ:");
+	printf("ì €ìž:");
 	gets(start->auther);
-	printf("ÄÚµå:");
+	printf("ì½”ë“œ:");
 	gets(start->code);
-	printf("°¡°Ý:");
+	printf("ê°€ê²©:");
 	scanf_s("%d", &start->price);
 
 
@@ -220,7 +220,7 @@ int main()
 	for (;;)
 	{
 		menu();
-		printf("¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä\n");
+		printf("ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì„¸ìš”\n");
 		scanf_s("%d", &choice);
 		if (choice == 1)
 		{
@@ -272,12 +272,12 @@ int main()
 		}
 		else if (choice == 0)
 		{
-			printf("½Ã½ºÅÛ Á¾·áÇÕ´Ï´Ù\n");
+			printf("ì‹œìŠ¤í…œ ì¢…ë£Œí•©ë‹ˆë‹¤\n");
 			break;
 		}
 		else
 		{
-			printf("´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.\n");
+			printf("ë‹¤ì‹œ ìž…ë ¥í•˜ì„¸ìš”.\n");
 		}
 	}
 
