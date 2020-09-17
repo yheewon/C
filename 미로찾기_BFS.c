@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-int map[16][16] = {//0=ºó°ø°£ 1=¸ñÀûÁö 3=º® Áö³ª¿Â°ø°£:À½¼ö·Î Ç¥½Ã
+int map[16][16] = {//0=ë¹ˆê³µê°„ 1=ëª©ì ì§€ 3=ë²½ ì§€ë‚˜ì˜¨ê³µê°„:ìŒìˆ˜ë¡œ í‘œì‹œ
 	{ 0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0 },
 	{ 0,3,3,0,3,0,3,3,3,3,3,0,3,0,3,0 },
 	{ 0,0,3,0,0,0,0,0,0,0,3,0,3,0,3,3 },
@@ -20,12 +20,12 @@ int map[16][16] = {//0=ºó°ø°£ 1=¸ñÀûÁö 3=º® Áö³ª¿Â°ø°£:À½¼ö·Î Ç¥½Ã
 	{ 0,0,0,0,0,3,3,0,0,0,0,0,0,0,3,0 }
 };
 
-int user_x = 0, user_y = 0;//»ç¿ëÀÚ À§Ä¡
-int front = 0;//Å¥ ¹è¿­¼Ó Ã³À½
-int rear = -1;//Å¥ ¹è¿­¼Ó ¸¶Áö¸·
-int x[100], y[100];//Å¥
+int user_x = 0, user_y = 0;//ì‚¬ìš©ì ìœ„ì¹˜
+int front = 0;//í ë°°ì—´ì† ì²˜ìŒ
+int rear = -1;//í ë°°ì—´ì† ë§ˆì§€ë§‰
+int x[100], y[100];//í
 
-void PrintMap_Num();//¼ıÀÚ·Î ¸ÊÃâ·Â
+void PrintMap_Num();//ìˆ«ìë¡œ ë§µì¶œë ¥
 void Move();
 int Add();
 void Delete();
@@ -35,7 +35,7 @@ int main(void) {
 	PrintMap_Num();
 
 	Move();
-	printf("\nÃÖ´Ü°Å¸® Å½»ö ¿Ï·á\n");
+	printf("\nìµœë‹¨ê±°ë¦¬ íƒìƒ‰ ì™„ë£Œ\n");
 	PrintPath() 
 
 }
@@ -45,9 +45,9 @@ void PrintMap_Num() {
 	system("cls");
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 16; j++) {
-			if (i == 15 && j == 15) printf("  ¡Ú");
+			if (i == 15 && j == 15) printf("  â˜…");
 			else if (map[i][j] < 0) printf(" %d", map[i][j]);
-			else if (map[i][j] == 3) printf("  ¡á");
+			else if (map[i][j] == 3) printf("  â– ");
 			else printf("  %d ", map[i][j]);
 		}
 		printf("\n");
@@ -73,30 +73,30 @@ void Delete() {
 void Move() {
 	Add(0, 0);
 	PrintMap_Num();
-	map[user_y][user_x] = -1;//¹æ¹® À§Ä¡ Ç¥½Ã
+	map[user_y][user_x] = -1;//ë°©ë¬¸ ìœ„ì¹˜ í‘œì‹œ
 
 	while (1) {
-		Delete();//Å¥¿¡¼­ À§Ä¡ »©¿À±â
+		Delete();//íì—ì„œ ìœ„ì¹˜ ë¹¼ì˜¤ê¸°
 
 		if (user_y == 15 && user_x == 15) break;
-		else {//Áö³ª°¥¼ö ÀÖ´Â±æ : 0 ¶Ç´Â 1
-			if (map[user_y - 1][user_x] == 0 && user_y > 0) {//ºÏ
-				Add(user_y - 1, user_x);//Å¥ »ğÀÔ
-				map[user_y - 1][user_x] = map[user_y][user_x] - 1;//¹æ¹®À§Ä¡ Ç¥½Ã
+		else {//ì§€ë‚˜ê°ˆìˆ˜ ìˆëŠ”ê¸¸ : 0 ë˜ëŠ” 1
+			if (map[user_y - 1][user_x] == 0 && user_y > 0) {//ë¶
+				Add(user_y - 1, user_x);//í ì‚½ì…
+				map[user_y - 1][user_x] = map[user_y][user_x] - 1;//ë°©ë¬¸ìœ„ì¹˜ í‘œì‹œ
 			}
-			if (map[user_y][user_x + 1] == 0 && user_x < 15) {//µ¿
-				Add(user_y, user_x + 1);//Å¥ »ğÀÔ
-				map[user_y][user_x + 1] = map[user_y][user_x] - 1;//¹æ¹®À§Ä¡ Ç¥½Ã
+			if (map[user_y][user_x + 1] == 0 && user_x < 15) {//ë™
+				Add(user_y, user_x + 1);//í ì‚½ì…
+				map[user_y][user_x + 1] = map[user_y][user_x] - 1;//ë°©ë¬¸ìœ„ì¹˜ í‘œì‹œ
 
 			}
-			if (map[user_y + 1][user_x] == 0 && user_y < 15) {//³²
-				Add(user_y + 1, user_x);//Å¥ »ğÀÔ
-				map[user_y + 1][user_x] = map[user_y][user_x] - 1;//¹æ¹®À§Ä¡ Ç¥½Ã
+			if (map[user_y + 1][user_x] == 0 && user_y < 15) {//ë‚¨
+				Add(user_y + 1, user_x);//í ì‚½ì…
+				map[user_y + 1][user_x] = map[user_y][user_x] - 1;//ë°©ë¬¸ìœ„ì¹˜ í‘œì‹œ
 
 			}
-			if (map[user_y][user_x - 1] == 0 && user_x > 0) {//¼­
-				Add(user_y, user_x - 1);//Å¥ »ğÀÔ
-				map[user_y][user_x - 1] = map[user_y][user_x] - 1;//¹æ¹®À§Ä¡ Ç¥½Ã
+			if (map[user_y][user_x - 1] == 0 && user_x > 0) {//ì„œ
+				Add(user_y, user_x - 1);//í ì‚½ì…
+				map[user_y][user_x - 1] = map[user_y][user_x] - 1;//ë°©ë¬¸ìœ„ì¹˜ í‘œì‹œ
 			}
 		}
 
@@ -111,22 +111,22 @@ void PrintPath() {
 	map[x][y] = 100;
 
 	while (position != 0) {
-		if (map[y - 1][x] == position) {//ºÏ
+		if (map[y - 1][x] == position) {//ë¶
 			position++;
 			y--;
 			map[y][x] = 100;
 		}
-		if (map[y][x + 1] == position) {//µ¿
+		if (map[y][x + 1] == position) {//ë™
 			x++;
 			map[y][x] = 100;
 			position++;
 		}
-		if (map[y + 1][x] == position&& y < 15) {//³²
+		if (map[y + 1][x] == position&& y < 15) {//ë‚¨
 			y++;
 			map[y][x] = 100;
 			position++;
 		}
-		if (map[y][x - 1] == position&&x > 0) {//¼­
+		if (map[y][x - 1] == position&&x > 0) {//ì„œ
 			x--;
 			map[y][x] = 100;
 			position++;
@@ -135,11 +135,11 @@ void PrintPath() {
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 16; j++) {
-			if (map[i][j] == 100) printf("¡à");
-			else if (map[i][j] == 3) printf("¡á");
+			if (map[i][j] == 100) printf("â–¡");
+			else if (map[i][j] == 3) printf("â– ");
 			else printf("  ");
 		}
 		printf("\n");
 	}
-	printf("³¡!!!!!!!!!!!");
+	printf("ë!!!!!!!!!!!");
 }
